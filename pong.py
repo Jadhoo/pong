@@ -1,6 +1,7 @@
 # pong game by @jadhoo
 
 import turtle
+import winsound
 
 # initial setup
 wn = turtle.Screen()
@@ -84,21 +85,25 @@ while(True):
 
     # ball collission on top border
     if ball.ycor() > 290:
+        winsound.PlaySound('bounce.wav', winsound.SND_ASYNC)
         ball.sety(290)
         ball.dy *= -1
 
     # ball collission on bottom border
     if ball.ycor() < -290:
+        winsound.PlaySound("bounce.wav", winsound.SND_ASYNC)
         ball.sety(-290)
         ball.dy *= -1
 
     # ball collission with left paddle
     if ball.xcor() < -330 and (ball.ycor() > paddle_a.ycor() - 50 and ball.ycor() < paddle_a.ycor() + 50) :
-            ball.setx(-330)
-            ball.dx *= -1
+        winsound.PlaySound("bounce.wav", winsound.SND_ASYNC)
+        ball.setx(-330)
+        ball.dx *= -1
 
     # ball collission with right paddle
     if ball.xcor() > 330 and (ball.ycor() > paddle_b.ycor() - 50 and ball.ycor() < paddle_b.ycor() + 50) :
-            ball.setx(330)
-            ball.dx *= -1 
+        winsound.PlaySound("bounce.wav", winsound.SND_ASYNC)
+        ball.setx(330)
+        ball.dx *= -1 
 
