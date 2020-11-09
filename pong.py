@@ -69,6 +69,18 @@ def paddle_b_down():
         paddle_b.sety(y)
 
 
+# scores
+score_a = 0
+score_b = 0
+
+# score board
+score_board = turtle.Turtle()
+score_board.color("white")
+score_board.penup()
+score_board.setposition(0, 260)
+score_board.hideturtle()
+score_board.write('Player 1: 0 | Player 2: 0', move=False, align='center', font=("Courier", 20, "normal"))
+
 # keyboard binding
 wn.listen()
 wn.onkeypress(paddle_a_up, "w")
@@ -94,6 +106,20 @@ while(True):
         winsound.PlaySound("bounce.wav", winsound.SND_ASYNC)
         ball.sety(-290)
         ball.dy *= -1
+
+    # when left paddle scores
+    if ball.xcor() > 350:
+        score_a += 1
+        score_board.clear()
+        score_board.write("Player 1: {} | Player 2: {}".format(score_a, score_b), move = False, align = "center", font = ("Courier", 20, "normal"))
+        ball.goto(0, 0)
+    
+    # when right paddle scores
+    if ball.xcor() < -350:
+        score_b += 1
+        score_board.clear()
+        score_board.write("Player 1: {} | Player 2: {}".format(score_a, score_b), move = False, align = "center", font = ("Courier", 20, "normal"))
+        ball.goto(0, 0)
 
     # ball collission with left paddle
     if ball.xcor() < -330 and (ball.ycor() > paddle_a.ycor() - 50 and ball.ycor() < paddle_a.ycor() + 50) :
