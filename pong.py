@@ -35,5 +35,43 @@ ball.color("white")
 ball.setposition(0, 0)
 ball.penup()
 
+# functions
+
+# f1: move left paddle up
+def paddle_a_up():
+    y = paddle_a.ycor()
+    if y <= 240:
+        y += 20
+        paddle_a.sety(y)
+
+# f2: move left paddle down
+def paddle_a_down():
+    y = paddle_a.ycor()
+    if y >= -220:
+        y -= 20
+        paddle_a.sety(y)
+
+# f3: move right paddle up
+def paddle_b_up():
+    y = paddle_b.ycor()
+    if y <= 240:
+        y += 20
+        paddle_b.sety(y)
+
+# f4: move right paddle down
+def paddle_b_down():
+    y = paddle_b.ycor()
+    if y >= -220:
+        y -= 20
+        paddle_b.sety(y)
+
+
+# keyboard binding
+wn.listen()
+wn.onkeypress(paddle_a_up, "w")
+wn.onkeypress(paddle_a_down, "s")
+wn.onkeypress(paddle_b_up, "Up")
+wn.onkeypress(paddle_b_down, "Down")
+
 while(True):
     wn.update()
