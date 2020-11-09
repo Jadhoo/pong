@@ -34,6 +34,8 @@ ball.shape("square")
 ball.color("white")
 ball.setposition(0, 0)
 ball.penup()
+ball.dx = 0.3
+ball.dy = 0.3
 
 # functions
 
@@ -75,3 +77,28 @@ wn.onkeypress(paddle_b_down, "Down")
 
 while(True):
     wn.update()
+
+    # move ball
+    ball.setx(ball.xcor() + ball.dx)
+    ball.sety(ball.ycor() + ball.dy)
+
+    # ball collission on top border
+    if ball.ycor() > 290:
+        ball.sety(290)
+        ball.dy *= -1
+
+    # ball collission on bottom border
+    if ball.ycor() < -290:
+        ball.sety(-290)
+        ball.dy *= -1
+
+    # ball collission with left paddle
+    if ball.xcor() < -330 and (ball.ycor() > paddle_a.ycor() - 50 and ball.ycor() < paddle_a.ycor() + 50) :
+            ball.setx(-330)
+            ball.dx *= -1
+
+    # ball collission with right paddle
+    if ball.xcor() > 330 and (ball.ycor() > paddle_b.ycor() - 50 and ball.ycor() < paddle_b.ycor() + 50) :
+            ball.setx(330)
+            ball.dx *= -1 
+
