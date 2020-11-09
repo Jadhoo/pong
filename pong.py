@@ -27,5 +27,13 @@ paddle_b.penup()
 paddle_b.setposition(350, 0)
 paddle_b.shapesize(stretch_wid = 5, stretch_len = 1)
 
+# ball
+ball = turtle.Turtle()
+ball.speed(0)
+ball.shape("square")
+ball.color("white")
+ball.setposition(0, 0)
+ball.penup()
+
 while(True):
     wn.update()
