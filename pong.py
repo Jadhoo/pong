@@ -2,6 +2,7 @@
 
 import turtle
 import winsound
+import time
 
 # initial setup
 wn = turtle.Screen()
@@ -81,19 +82,38 @@ score_board.setposition(0, 260)
 score_board.hideturtle()
 score_board.write('Player 1: 0 | Player 2: 0', move=False, align='center', font=("Courier", 20, "normal"))
 
+# initially the ball is in rest
+move_ball = False
+
+# brings the ball in motion
+def release_ball():
+    global move_ball
+    move_ball = True
+
+# reset the positions of ball and paddle when a player scores
+def reset_positions():
+    global move_ball
+    move_ball = False
+    ball.setposition(0, 0)
+    paddle_a.setposition(-350, 0)
+    paddle_b.setposition(350, 0)
+
+
 # keyboard binding
 wn.listen()
 wn.onkeypress(paddle_a_up, "w")
 wn.onkeypress(paddle_a_down, "s")
 wn.onkeypress(paddle_b_up, "Up")
 wn.onkeypress(paddle_b_down, "Down")
+wn.onkeypress(release_ball, "space")
 
 while(True):
     wn.update()
 
     # move ball
-    ball.setx(ball.xcor() + ball.dx)
-    ball.sety(ball.ycor() + ball.dy)
+    if move_ball:
+        ball.setx(ball.xcor() + ball.dx)
+        ball.sety(ball.ycor() + ball.dy)
 
     # ball collission on top border
     if ball.ycor() > 290:
@@ -109,17 +129,21 @@ while(True):
 
     # when left paddle scores
     if ball.xcor() > 350:
+        winsound.PlaySound("score.wav", winsound.SND_ASYNC)
         score_a += 1
         score_board.clear()
         score_board.write("Player 1: {} | Player 2: {}".format(score_a, score_b), move = False, align = "center", font = ("Courier", 20, "normal"))
-        ball.goto(0, 0)
+        time.sleep(1.5)
+        reset_positions()
     
     # when right paddle scores
     if ball.xcor() < -350:
+        winsound.PlaySound("score.wav", winsound.SND_ASYNC)
         score_b += 1
         score_board.clear()
         score_board.write("Player 1: {} | Player 2: {}".format(score_a, score_b), move = False, align = "center", font = ("Courier", 20, "normal"))
-        ball.goto(0, 0)
+        time.sleep(1.5)
+        reset_positions()
 
     # ball collission with left paddle
     if ball.xcor() < -330 and (ball.ycor() > paddle_a.ycor() - 50 and ball.ycor() < paddle_a.ycor() + 50) :
