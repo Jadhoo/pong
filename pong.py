@@ -36,8 +36,8 @@ ball.shape("square")
 ball.color("white")
 ball.setposition(0, 0)
 ball.penup()
-ball.dx = 0.35
-ball.dy = 0.35
+ball.dx = 0.5
+ball.dy = 0.5
 ball.hideturtle()
 
 # functions for game controlls
@@ -176,7 +176,7 @@ while(True):
             ball.dy *= -1
 
         # ball collission on bottom border
-        if ball.ycor() < -290:
+        elif ball.ycor() < -290:
             winsound.PlaySound("bounce.wav", winsound.SND_ASYNC)
             ball.sety(-290)
             ball.dy *= -1
@@ -184,7 +184,7 @@ while(True):
         # when left paddle scores
         if ball.xcor() > 350:
             score_a += 1
-            if score_a < 3:
+            if score_a < 2:
                 winsound.PlaySound("score.wav", winsound.SND_ASYNC)
             else:
                 winner = "Player 1"
@@ -196,9 +196,9 @@ while(True):
             reset_positions()
         
         # when right paddle scores
-        if ball.xcor() < -350:
+        elif ball.xcor() < -350:
             score_b += 1
-            if score_b < 3:
+            if score_b < 2:
                 winsound.PlaySound("score.wav", winsound.SND_ASYNC)
             else:
                 winner = "Player 2"
@@ -216,7 +216,7 @@ while(True):
             ball.dx *= -1
 
         # ball collission with right paddle
-        if ball.xcor() > 330 and (ball.ycor() > paddle_b.ycor() - 50 and ball.ycor() < paddle_b.ycor() + 50) :
+        elif ball.xcor() > 330 and (ball.ycor() > paddle_b.ycor() - 50 and ball.ycor() < paddle_b.ycor() + 50) :
             winsound.PlaySound("bounce.wav", winsound.SND_ASYNC)
             ball.setx(330)
             ball.dx *= -1 
